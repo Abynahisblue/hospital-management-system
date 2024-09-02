@@ -26,7 +26,7 @@ public class WardService {
 
     // Retrieve all wards
     public List<Ward> getAllWards() {
-        return wardRepository.findAll();
+        return (List<Ward>) wardRepository.findAll();
     }
 
     // Update an existing ward

@@ -1,6 +1,7 @@
 package com.hospital_management_system.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,4 +16,6 @@ public class Doctor extends Employee{
     private String speciality;
     @OneToMany(mappedBy = "doctor")
     private List<Patient> patients;
+
+
 }

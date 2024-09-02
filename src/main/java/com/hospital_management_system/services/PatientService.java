@@ -19,7 +19,7 @@ public class PatientService {
     }
 
     public List<Patient> getAllPatients() {
-        return patientRepository.findAll();
+        return (List<Patient>) patientRepository.findAll();
     }
 
     public Patient getPatientById(Long id) {
@@ -27,7 +27,7 @@ public class PatientService {
     }
 
     public List<Patient> getPatientsByLastName(String lastName) {
-        return patientRepository.findByLastName(lastName);
+        return patientRepository.findByLastname(lastName);
     }
 
     public Patient updatePatient(Long id, Patient updatedPatient) {
@@ -47,5 +47,9 @@ public class PatientService {
         }
 
         return null;
+    }
+
+    public void deletePatient(Long id) {
+        patientRepository.deleteById(id);
     }
 }

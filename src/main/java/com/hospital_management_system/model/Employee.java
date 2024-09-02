@@ -2,16 +2,18 @@ package com.hospital_management_system.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-@Entity
 @Getter
 @Setter
-@Inheritance (strategy = InheritanceType.JOINED)
-public class Employee {
+@NoArgsConstructor
+@MappedSuperclass
+public abstract class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long emp_id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;

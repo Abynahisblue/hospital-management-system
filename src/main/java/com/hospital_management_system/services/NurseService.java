@@ -13,7 +13,7 @@ public class NurseService {
     private NurseRepository nurseRepository;
 
     public List<Nurse> getAllNurses() {
-        return nurseRepository.findAll();
+        return (List<Nurse>) nurseRepository.findAll();
     }
 
     public Nurse getNurseById(Long id) {
