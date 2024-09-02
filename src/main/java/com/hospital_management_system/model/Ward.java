@@ -14,7 +14,10 @@ public class Ward implements Serializable {
     @EmbeddedId
     private WardId wardNumber;
 
-    private int numberOfBeds;
+    private String name;
+
+
+    private int capacity;
 
     @OneToOne
     @JoinColumn(name = "supervisor_id")

@@ -14,6 +14,7 @@ public class Patient {
     private String firstname;
     private String lastname;
     private String address;
+    private String bedNumber;
     private String phone;
     private String email;
     private String gender;
