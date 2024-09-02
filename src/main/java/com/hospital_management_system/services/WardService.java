@@ -4,6 +4,8 @@ import com.hospital_management_system.model.Ward;
 import com.hospital_management_system.repositories.WardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +44,7 @@ public class WardService {
         return null;
     }
 
-    // Delete a ward by ID
+    @Transactional(propagation = Propagation.NEVER)
     public void deleteWard(Long id) {
         wardRepository.deleteById(id);
     }

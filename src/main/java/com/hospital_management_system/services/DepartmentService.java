@@ -4,6 +4,10 @@ import com.hospital_management_system.model.Department;
 import com.hospital_management_system.repositories.DepartmentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +22,10 @@ public class DepartmentService {
         return (List<Department>) departmentRepository.findAll();
     }
 
+
+    @Cacheable(value = "departments", key = "#id")
     public Department getDepartmentById(Long id) {
+        System.out.println("Fetching departments from database...");
         return departmentRepository.findById(id).orElse(null);
     }
 
@@ -26,6 +33,13 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "department", key = "#id"),
+                    @CacheEvict(value = "building", key = "#department.building")
+            },
+            put = @CachePut(value = "department", key = "#id")
+    )
     public Department updateDepartment(Long id, Department updatedDepartment) {
         Optional<Department> existingDepartmentOpt = departmentRepository.findById(id);
         if (existingDepartmentOpt.isPresent()) {

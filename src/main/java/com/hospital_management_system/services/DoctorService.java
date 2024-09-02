@@ -4,10 +4,12 @@ import com.hospital_management_system.model.Doctor;
 import com.hospital_management_system.repositories.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class DoctorService {
     @Autowired
     private DoctorRepository doctorRepository;
@@ -21,12 +23,11 @@ public class DoctorService {
     }
 
 
-    // Retrieve a doctor by ID
     public Doctor getDoctorById(Long id) {
         return doctorRepository.findById(id).orElse(null);
     }
 
-    // Update an existing doctor
+
     public Doctor updateDoctor(Long id, Doctor updatedDoctor) {
         return doctorRepository.findById(id)
                 .map(existingDoctor -> {
@@ -40,7 +41,6 @@ public class DoctorService {
                 .orElse(null);
     }
 
-    // Delete a doctor by ID
     public void deleteDoctor(Long id) {
         doctorRepository.deleteById(id);
     }
