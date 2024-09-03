@@ -1,16 +1,20 @@
 package com.hospital_management_system.model;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 
-@Entity
+import java.io.Serializable;
+
+@RedisHash("Patient") // This tells Redis to store the Patient entity under the "Patient" key prefix
 @Getter
 @Setter
-public class Patient {
+public class Patient implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long patient_id;
+    private String patientId; // Use String for the ID to support UUIDs or other string-based keys
     private String firstname;
     private String lastname;
     private String address;
@@ -21,14 +25,13 @@ public class Patient {
     private String dob;
     private String diagnosis;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
+    // Indexed fields are used for secondary indexing in Redis
+    @Indexed
+    private String doctorId; // Store the ID of the associated Doctor instead of using @ManyToOne
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "department_id", referencedColumnName = "departmentId"),
-            @JoinColumn(name = "ward_number", referencedColumnName = "wardNumber")
-    })
-    private Ward ward;
+    @Indexed
+    private String departmentId; // Store the ID of the associated Department
+
+    @Indexed
+    private String wardId; // Store the ID of the associated Ward
 }

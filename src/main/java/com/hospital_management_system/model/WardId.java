@@ -1,19 +1,19 @@
 package com.hospital_management_system.model;
 
-import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-
-@Setter
 @Getter
-@Embeddable
+@Setter
 public class WardId implements Serializable {
-    private Long departmentId;
-    private int wardNumber;
+
+    @DBRef
+    private Department departmentId;
+    private int wardNumber; // Use int for ward number, which remains part of the composite key
 
     @Override
     public int hashCode() {

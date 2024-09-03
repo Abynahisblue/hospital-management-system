@@ -1,37 +1,33 @@
 package com.hospital_management_system.model;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
+@Document(collection = "wards")
 @Getter
 @Setter
 public class Ward implements Serializable {
-    @EmbeddedId
-    private WardId wardNumber;
+
+    @Id
+    private String wardNumber;  // Use String for MongoDB ID representation
 
     private String name;
-
-
     private int capacity;
 
-    @OneToOne
-    @JoinColumn(name = "supervisor_id")
-    private Nurse supervisor;
+    @DBRef
+    private Nurse supervisorId;
 
-    @ManyToOne
-    @MapsId("departmentId")
-    @JoinColumn(name = "departmentId")
-    private Department department;
+    // Reference to the department by its ID
+    @DBRef
+    private Department departmentId;
 
-    @OneToMany(mappedBy = "ward")
-    private List<Patient> patients;
+    @DBRef
+    private List<Patient> patientIds;
 
 }
-
-
-

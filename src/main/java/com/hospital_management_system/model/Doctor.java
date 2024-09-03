@@ -5,16 +5,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Entity
+
 @Setter
 @Getter
+@Document(collection = "doctors")
 public class Doctor extends Employee{
     private String speciality;
-    @OneToMany(mappedBy = "doctor")
+
+    @DBRef
     private List<Patient> patients;
 
 
