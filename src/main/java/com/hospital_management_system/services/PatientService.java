@@ -39,7 +39,7 @@ public class PatientService {
      * @param id the patient ID
      * @return the patient if found, otherwise null
      */
-    public Patient getPatientById(Long id) {
+    public Patient getPatientById(String id) {
         return patientRepository.findById(id).orElse(null);
     }
 
@@ -60,7 +60,7 @@ public class PatientService {
      * @param updatedPatient the updated patient details
      * @return the updated patient, or null if not found
      */
-    public Patient updatePatient(Long id, Patient updatedPatient) {
+    public Patient updatePatient(String id, Patient updatedPatient) {
         Optional<Patient> existingPatientOpt = patientRepository.findById(id);
 
         if (existingPatientOpt.isPresent()) {
@@ -73,6 +73,7 @@ public class PatientService {
             existingPatient.setDiagnosis(updatedPatient.getDiagnosis());
             existingPatient.setWardId(updatedPatient.getWardId());
             existingPatient.setDoctorId(updatedPatient.getDoctorId());
+            existingPatient.setDepartmentId(updatedPatient.getDepartmentId());
             return patientRepository.save(existingPatient);
         }
 
@@ -84,7 +85,7 @@ public class PatientService {
      *
      * @param id the patient ID
      */
-    public void deletePatient(Long id) {
+    public void deletePatient(String id) {
         patientRepository.deleteById(id);
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface PatientRepository extends CrudRepository<Patient,Long> {
+public interface PatientRepository extends CrudRepository<Patient,String> {
     // Find all patients by last name
     List<Patient> findByLastname(String lastName);
 
