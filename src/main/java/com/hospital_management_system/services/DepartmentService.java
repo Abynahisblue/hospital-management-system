@@ -23,10 +23,10 @@ public class DepartmentService {
     }
 
 
-    @Cacheable(value = "departments", key = "#id")
-    public Department getDepartmentById(Long id) {
+    @Cacheable(value = "departments", key = "#departmentId")
+    public Department getDepartmentById(Long departmentId) {
         System.out.println("Fetching departments from database...");
-        return departmentRepository.findById(id).orElse(null);
+        return departmentRepository.findById(departmentId).orElse(null);
     }
 
     public Department createDepartment(Department department) {
@@ -35,10 +35,10 @@ public class DepartmentService {
 
     @Caching(
             evict = {
-                    @CacheEvict(value = "department", key = "#id"),
-                    @CacheEvict(value = "building", key = "#department.building")
+                    @CacheEvict(value = "department", key = "#departmentId"),
+                    @CacheEvict(value = "building", key = "#building")
             },
-            put = @CachePut(value = "department", key = "#id")
+            put = @CachePut(value = "department", key = "#departmentId")
     )
     public Department updateDepartment(Long id, Department updatedDepartment) {
         Optional<Department> existingDepartmentOpt = departmentRepository.findById(id);

@@ -13,9 +13,10 @@ import java.util.List;
 @Setter
 @Getter
 public class Doctor extends Employee{
+
     private String speciality;
+
     @OneToMany(mappedBy = "doctor")
     private List<Patient> patients;
-
 
 }
